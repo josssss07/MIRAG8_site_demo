@@ -108,3 +108,9 @@ body {
     grid-auto-columns: 100%;
   }
 }
+
+
+.blocker {
+  width: 400px;
+  height: 250px;
+}
