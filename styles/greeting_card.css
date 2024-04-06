@@ -1,0 +1,43 @@
+.greetings-info-card{
+    display: flex;
+    flex-direction: column;
+    color: aqua;
+}
+
+.greetings{
+    font-size: 26px;
+    padding: 12px;
+    padding-left: 18px;
+    font-family: 'JetBrains Mono';
+}
+.current-time{
+    padding: 20px;
+    display: inline;
+    font-family: 'JetBrains Mono';
+    font-size: 18px;
+}
+
+.info-card-greet{
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+}
+
+.info-p{
+    padding: 12px;
+    font-size: 16px;
+    font-family: 'JetBrains Mono';
+}
+
+.info-p-2{
+    padding: 12px;
+    font-size: 18px;
+    font-family: 'JetBrains Mono';
+}
+
+.notif-card{
+    padding: 12px;
+    font-size: 18px;
+    font-family: 'JetBrains Mono';
+    color: aqua;
+}

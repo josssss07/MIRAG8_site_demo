@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <link rel="stylesheet" href="./styles/greeting_card.css">
     <meta charset="utf-8" />
     <title>Infinite Card Slider JavaScript | CodingNepal</title>
     <link rel="stylesheet" href="./styles/style.css">
@@ -14,15 +15,17 @@
         <!--grettings card-->
         <li class="card">
           <div class="greetings-info-card">
-            <h3 id='greetings' class="greetings"></h3><br>
+            <p id='greetings' class="greetings"></p><br>
             <p id="current-time" class="current-time"></p>
-            <p>You have no pending notifications now(add notifications here once module is built)</p>
-            <p>Swipe the cards for more information</p>
+            <div class="info-card-greet">
+              <p class="info-p">You have no pending notifications now(add notifications here once module is built)</p>
+              <p class="info-p-2">Swipe the cards for more information</p>
+            </div>
           </div>
         </li>
         <!--notifications cards-->
         <li class="card">
-          <h3>notifications card</h3>
+          <h3 class="notif-card">notifications card</h3>
         </li>
         <!--date time card-->
         <li class="card">
@@ -35,7 +38,6 @@
           <div class="container">
             <div class="todo-header">
               <h2>ToDo List</h2>
-              <img src="images/notebook.webp" height="50px" />
             </div>
             <div class="todo-body">
               <input
@@ -57,7 +59,7 @@
             </div>
         </li>
         <li class="card">
-          <h2>Stocks card example</h2>
+          <h2 style="color: aqua;">Stocks card example</h2>
           <div class="blocker">
             <canvas id="myChart"></canvas>
           </div>
@@ -116,16 +118,18 @@
             fetchData();
           </script>
         </li>
-        <li class="card">
+        <li class="card" style="color: aqua;">
           <h3>spotify card</h3>
         </li>
-        <li class="card">
+        <li class="card" style="color: aqua;">
           <h3>email card</h3>
         </li>
+        <!--
         <li class="card">
-          <h3>youtube card</h3>
+          <iframe src="https://www.youtube.com" height="600" width="250"></iframe>
         </li>
-        <li class="card">
+        -->
+        <li class="card" style="color: aqua;">
           <h3>home assist card</h3>
         </li>
       </ul>
