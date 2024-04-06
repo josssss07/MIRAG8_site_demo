@@ -78,7 +78,7 @@ body {
 }
 .carousel .card {
   scroll-snap-align: start;
-  height: 342px;
+  height:800px  ;
   list-style: none;
   border: #68C5DB;
   cursor: pointer;
@@ -88,7 +88,7 @@ body {
   outline: auto;
   outline-color: #68C5DB;
   overflow-y: auto; /*ADDITION FOR SCROLLABLE*/
-  max-height: 300px;
+  max-height: 800px;
 }
 
 .carousel .card h2 {
@@ -99,7 +99,7 @@ body {
 .carousel .card span {
   color: #6A6D78;
   font-size: 1.31rem;
-}
+} 
 
 @media screen and (max-width: 900px) {
   .wrapper .carousel {
@@ -189,6 +189,7 @@ h5 {
 li {
   opacity: 0;
   animation: new-item-animation 0.3s linear forwards;
+  font-family: 'JetBrains Mono', sans-serif;
 }
 
 @keyframes new-item-animation {
