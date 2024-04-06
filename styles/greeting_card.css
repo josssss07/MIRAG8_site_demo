@@ -41,3 +41,13 @@
     font-family: 'JetBrains Mono';
     color: aqua;
 }
+
+.fun-fact-quest{
+    padding: 12px;
+    font-size: 18px;
+}
+
+.fun-fact-ans{
+    padding: 12px;
+    font-size: 18px;
+}
