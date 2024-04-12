@@ -6,6 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'JetBrains Mono', sans-serif;
 }
 body {
   display: flex;
@@ -110,10 +111,12 @@ body >.container{
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  background: #edeef0;
+  /* background: #edeef0; */
   border-radius: 30px;
   padding-left: 20px;
   margin-bottom: 25px;
+  background-color: #7f7f835d;
+  color:aqua;
 }
 
 .todo-body input {
@@ -123,10 +126,13 @@ body >.container{
   width:100%;
   border: none;
   outline: none;
-  background: transparent;
+   background: transparent; 
   padding: 15px 0;
-  font-size: 20px;
-  color: black; /* Text color */
+  font-size: 20px;    
+  color:aqua;
+}
+.todo-body input::placeholder{
+  color: aqua;
 }
 
 .todo-body img {
@@ -135,7 +141,7 @@ body >.container{
   height: 55px;
   width: 55px;
   padding: 2px;
-  background: limegreen;
+  background: rgba(46, 246, 24, 0.7);
 }
 
 ul li {
@@ -148,10 +154,10 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #edeef0;
+  background-color: #7f7f835d;
   margin-bottom: 10px;
   border-radius: 5px;
-  color: black; /* Text color */
+  color: aqua; /* Text color */
 }
 
 h5 {
@@ -185,7 +191,7 @@ li {
   }
 }
 
-li.deleted-item {
+/* li.deleted-item {
   animation: removed-item-animation 1s cubic-bezier(0.55, -0.04, 0.91, 0.94)
     forwards;
   transform-origin: 0% 100%;
@@ -201,7 +207,7 @@ li.deleted-item {
     opacity: 0;
     transform: translateY(600px) rotateZ(90deg);
   }
-}
+} */
 
 .toggleMe {
   animation: hideMe 5s forwards;
@@ -219,6 +225,7 @@ li.deleted-item {
 .list-items {
   width: 100%; /* Ensure the list takes up full width */
   padding-left: 0; /* Remove default padding */
+  color: aqua;
 }
 
 /* Adjust styles for smaller screens */
@@ -227,12 +234,14 @@ li.deleted-item {
     flex-basis: 100%; /* Full width for input on smaller screens */
     margin-right: 0; /* Remove right margin for input on smaller screens */
     margin-bottom: 10px; /* Add some bottom margin for spacing */
+
   }
 }
 .blocker{
   color: aqua;
-  /*shalom fix this*/
+  /*shalome fix this*/
 }
+
 .date-time-weather{
 display: flex;
 justify-content: space-between;
