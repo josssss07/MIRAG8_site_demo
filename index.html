@@ -11,42 +11,34 @@
     <link href="https://api.fontshare.com/v2/css?f[]=jet-brains-mono@200,300,400&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="wrapper">
-      <ul class="carousel">
-        <!--grettings card-->
-        <li class="card">
-          <div class="greetings-info-card">
-            <p id='greetings' class="greetings"></p><br>
-            <p id="current-time" class="current-time"></p>
-            <div class="info-card-greet">
-              <p class="info-p-2">Swipe the cards for more information</p>
-            </div>
-          </div>
-        </li>
-        
-        <!--notifications cards-->
-        <li class="card">
-          <h3 class="notif-card">notifications card</h3>
-        </li>
-        <!--date time card-->
-        <li class="card">
-          <h1>Date Time Weather card</h1>
-          <h2>data goes here</h2>
-          <h3>card 2</h3>
-        </li>
-        <!-- To-Do List -->
-        <li class="card">
-          <div class="container">
-            <div class="todo-header">
-              <h2>ToDo List</h2>
-            </div>
-            <div class="todo-body">
-              <input
+    <div class = "container">
+      <div class="date-time-weather">
+      <div class="date-time">
+        <h1>Date Time card</h1>
+        <h2>data goes here</h2>
+      </div>
+      <div class="weather">
+        <h1>Weather card</h1>
+        <h2>data goes here</h2>
+      </div>
+    </div>
+
+      <div class="wrapper">
+        <ul class="carousel">
+
+          <!-- To-Do List -->
+          <li class="card">
+            <div class="container">
+              <div class="todo-header">
+                <h2>ToDo List</h2>
+              </div>
+              <div class="todo-body">
+                <input
                   type="text"
                   id="todoText"
                   class="todo-input"
                   placeholder="Add your items"
-              />
+                />
               <!-- <span class="date" id="currentDate"></span> -->
               <img
                   src="images/addList.jpg"
@@ -58,13 +50,14 @@
               <h5 id="Alert"></h5>
               <ul id="list-items" class="list-items"></ul>
             </div>
-        </li>
-        <li class="card">
-          <h2 style="color: aqua;">Stocks card example</h2>
-          <div class="blocker">
-            <canvas id="myChart"></canvas>
-          </div>
-          <script>
+          </li>
+
+          <li class="card">
+            <h2 style="color: aqua;">Stocks card example</h2>
+            <div class="blocker">
+              <canvas id="myChart"></canvas>
+            </div>
+            <script>
             var ctx = document.getElementById("myChart");
 
             async function fetchData() {
@@ -117,29 +110,40 @@
             }
 
             fetchData();
-          </script>
-        </li>
-        <li class="card" style="color: aqua;">
-          <h3>spotify card</h3>
-        </li>
-        <li class="card" style="color: aqua;">
-          <h3>email card</h3>
-        </li>
-        <!--fun facts-->
-        <li class="card" style="color: aqua;">
-          <h3>Fun FACTS</h3>
-          <p class = "fun-fact-quest" id="fun-fact-quest"></p>
-          <p class="fun-fact-ans" id="fun-fact-ans"></p>  
-        </li>
-        <!--
-        <li class="card">
-          <iframe src="https://www.youtube.com" height="600" width="250"></iframe>
-        </li>
-        -->
-        <li class="card" style="color: aqua;">
-          <h3>home assist card</h3>
-        </li>
-      </ul>
+            </script>
+          </li>
+
+          <li class="card" style="color: aqua;">
+            <h3>spotify card</h3>
+          </li>
+
+          <li class="card" style="color: aqua;">
+            <div>mail</div>
+          </li>
+
+          <!--fun facts-->
+          <li class="card" >
+           <h3>Fun FACTS</h3>
+            <p class = "fun-fact-quest" id="fun-fact-quest"></p>
+            <p class="fun-fact-ans" id="fun-fact-ans"></p>  
+          </li>
+
+          <li class="card">
+            <div>yt</div>
+          </li>
+        
+          <li class="card" style="color: aqua;">
+            <h3>home assist card</h3>
+          </li>
+        </ul>
+      </div>
+      <div class="greetings-info-card">
+        <p id='greetings' class="greetings"></p><br>
+        <p id="current-time" class="current-time"></p>
+        <div class="info-card-greet">
+          <p class="info-p-2">Swipe the cards for more information</p>
+        </div>
+      </div>
     </div>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/greetings.js"></script>
