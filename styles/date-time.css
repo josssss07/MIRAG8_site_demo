@@ -1,17 +1,19 @@
 
 .date-time{
     display: flex;
-    color: aqua;
-    padding: 12px;
-    margin: 16px;
-    font-size: 22px;
-    background-color: black;
+}
+.date-time-weather > div{
+    background-color: #19191a;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 10px;
 }
 
 .date-time-weather{
     color: aqua;
     display: flex;
-    padding: 12px;
-    position: absolute;
-    top: 1em;
+    justify-content: space-between;
+    font-size: 150%;
+    top: 1rem;
+    width: 100%;
 }

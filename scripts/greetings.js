@@ -4,7 +4,7 @@ let minutes = currentDate.getMinutes().toString().padStart(2, '0');
 let formattedTime = `${hours}:${minutes}`;
 const currentTime = new Date().getHours();
 let greeting;
-let currentTimeIndication = "The current time is : "+ formattedTime;
+let currentTimeIndication = formattedTime;
 let currenttimedata = formattedTime;
 if(currentTime<12){
     let morning_greetings = [
