@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'JetBrains Mono', sans-serif;
+  font-family: 'Satoshi', sans-serif;
 }
 body {
   display: flex;
@@ -30,7 +30,7 @@ body >.container{
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: 16px;
-  border-radius: 8px;
+  border-radius: 12px;
   scroll-behavior: smooth;
   scrollbar-width: none;
 }
@@ -244,14 +244,3 @@ li {
   /* TODO : shalome fix this*/
 }
 
-.date-time-weather{
-display: flex;
-justify-content: space-between;
-}
-.date-time-weather> div{
-  color: aqua;
-  border: 1px solid aqua;
-  background-color: #29292c;
-  width: 25rem;
-  height: 15rem;
-}

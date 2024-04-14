@@ -1,0 +1,17 @@
+
+.date-time{
+    display: flex;
+    color: aqua;
+    padding: 12px;
+    margin: 16px;
+    font-size: 22px;
+    background-color: black;
+}
+
+.date-time-weather{
+    color: aqua;
+    display: flex;
+    padding: 12px;
+    position: absolute;
+    top: 1em;
+}
