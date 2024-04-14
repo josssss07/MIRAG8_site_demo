@@ -14,7 +14,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #161616;
+  background-color: #070707;
 }
 body >.container{
   padding:0;
@@ -56,16 +56,18 @@ body >.container{
 .carousel .card {
   scroll-snap-align: start;
   list-style: none;
-  border: #68C5DB;
   cursor: pointer;
   padding-bottom: 15px;
   flex-direction: column;
   border-radius: 8px;
-  outline: auto;
-  outline-color: #68C5DB;
   overflow-y: auto; /*ADDITION FOR SCROLLABLE*/
   color: #edeef0;
-  background-color: #29292c;
+  background-color: #19191a;
+}
+
+.wrapper-wrapper{
+  outline: auto;
+  outline-color: #68C5DB;
 }
 
 .carousel .card h2 {
@@ -239,7 +241,7 @@ li {
 }
 .blocker{
   color: aqua;
-  /*shalome fix this*/
+  /* TODO : shalome fix this*/
 }
 
 .date-time-weather{
