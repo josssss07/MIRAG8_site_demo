@@ -36,6 +36,9 @@ body >.container{
   scroll-behavior: smooth;
   scrollbar-width: none;
 }
+.carousel{
+  margin: 0.5rem;
+}
 .carousel::-webkit-scrollbar {
   display: none;
 }
@@ -52,14 +55,13 @@ body >.container{
 }
 .carousel :where(.card, .img) {
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .carousel .card {
   scroll-snap-align: start;
   list-style: none;
   cursor: pointer;
   padding-bottom: 15px;
+  height: 18rem;
   flex-direction: column;
   border-radius: 8px;
   overflow-y: auto; /*ADDITION FOR SCROLLABLE*/
@@ -71,8 +73,7 @@ body >.container{
   outline: auto;
   outline-color: #68C5DB;
   float: right;    
-  width: 50%;
-  height: 10%;
+  width: 60%;
 }
 
 .carousel .card h2 {
@@ -239,4 +240,9 @@ li {
 .spotify {
   outline: auto;
   outline-color: #68C5DB;
+}
+.card > .container{
+  display: flex;
+  flex-direction: column;
+  height: 3rem;
 }
