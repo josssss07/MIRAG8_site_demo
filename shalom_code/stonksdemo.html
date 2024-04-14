@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stonker</title>
+    <style>
+        .blocker {
+            width: 400px;
+            height: 250px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="blocker">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        async function fetchData() {
+            const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo");
+            let json = (await resp.json())["Time Series (5min)"];
+            console.log(json);
+            const firstKey = Object.keys(json)[0].split(" ")[0];
+            let data = Object.entries(json).filter(arg => {
+                if (arg[0].startsWith(firstKey)) {
+                    return true;
+                }
+                return false;
+            });
+            data = data.slice(0, 10);
+            const valMap = {};
+            data.forEach(entry => {
+                valMap[entry[0].split(" ")[1]] = entry[1]['4. close'];
+            });
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Object.keys(valMap),
+                    datasets: [{
+                        label: 'Closing Price',
+                        data: Object.values(valMap),
+                        borderWidth: 3,
+                        borderColor: 'rgb(0,255,120)',
+                        pointBackgroundColor: 'rgb(0,255,200)'
+                    }]
+                },
+                options: {
+                    layout: {
+                        padding: 20
+                    },
+                    scales: {
+                        x: {
+                            // display: false
+                        },
+                        y: {
+                            // display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        fetchData();
+    </script>
+</body>
+
+</html>
