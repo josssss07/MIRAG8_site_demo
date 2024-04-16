@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <link rel="stylesheet" href="./styles/greeting_card.css">
-    <meta charset="utf-8" />
+<head>
+  <link rel="stylesheet" href="./styles/greeting_card.css">
+  <meta charset="utf-8" />
     <title>MIGRAT8 Smart Mirror Demo  </title><script src="./scripts/news_data.js"></script>
 
-    <link rel="stylesheet" href="./styles/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400&f[]=ranade@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/date-time.css">
-  </head>
-  <body>
+  <link rel="stylesheet" href="./styles/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./scripts/stocks.js" defer></script>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400&f[]=ranade@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/date-time.css">
+  <link rel="stylesheet" href="./styles/stocks.css">
+</head>
+<body>
     <div class = "container">
-      <div class="date-time-weather">
-        <div class="date-time" id="current-time">
-  
-        </div>
-        <div class="weather">
-          <div>Weather card</div>
-          <div>data goes here</div>
-        </div>
+    <div class="date-time-weather">
+      <div class="date-time" id="current-time">
+
       </div>
+      <div class="weather">
+        <div>Weather card</div>
+        <div>data goes here</div>
+      </div>
+    </div>
     <div class="spotify-carousel">
       <div class="spotify">
         <div>spotify banner</div>
@@ -29,7 +31,7 @@
       <div class="wrapper-wrapper">
         <div class="wrapper">
           <ul class="carousel">
-  
+
             <!-- To-Do List -->
             <li class="card">
               <div class="container">
@@ -43,7 +45,7 @@
                     class="todo-input"
                     placeholder="Add your items"
                   />
-                <!-- <span class="date" id="currentDate"></span> -->
+                  <!-- <span class="date" id="currentDate"></span> -->
                 <img
                     src="images/addList.jpg"
                     alt="+"
@@ -55,83 +57,70 @@
                 <ul id="list-items" class="list-items"></ul>
               </div>
             </li>
-  
+
             <li class="card">
               <h2 style="color: aqua;">Stonks card example</h2>
-              <div class="blocker">
-                <canvas id="myChart"></canvas>
-              </div>
-              <script>
-              var ctx = document.getElementById("myChart");
-  
-              async function fetchData() {
-                const resp = await fetch(
-                  "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo"
-                );
-                let json = (await resp.json())["Time Series (5min)"];
-                console.log(json);
-                const firstKey = Object.keys(json)[0].split(" ")[0];
-                let data = Object.entries(json).filter((arg) => {
-                  if (arg[0].startsWith(firstKey)) {
-                    return true;
-                  } 
-                  return false;
-                });
-                data = data.slice(0, 10);
-                const valMap = {};
-                data.forEach((entry) => {
-                  valMap[entry[0].split(" ")[1]] = entry[1]["4. close"];
-                });
-  
-                new Chart(ctx, {
-                  type: "line",
-                  data: {
-                    labels: Object.keys(valMap),
-                    datasets: [
-                      {
-                        label: "Closing Price",
-                        data: Object.values(valMap),
-                        borderWidth: 3,
-                        borderColor: "rgb(0,255,120)",
-                        pointBackgroundColor: "rgb(0,255,200)",
-                      },
-                    ],
-                  },
-                  options: {
-                    layout: {
-                      padding: 20,
-                    },
-                    scales: {
-                      x: {
-                        // display: false
-                      },
-                      y: {
-                        // display: false
-                      },
-                    },
-                  },
-                });
-              }
-  
-              fetchData();
-              </script>
+              <div class="stocks-card">
+                <div class="wrap">
+                    <h1 id="stock-name"> </h1>
+                    <input type="text" name="symbol" id="symbol">
+                    <button id="search" onclick="orchestrate()"><img src="./images/icon.png" alt="Search"
+                            /></button>
+                </div>
+                <div class="current">
+                    <h2 id="current-price"> </h2>
+                    <div style="width: 15px; height: 15px;" id="down">
+                        <svg viewBox="0 0 100 100">
+                            <path d="M 0,0 L 50,100 L 100,0 Z" fill="#FF3232" />
+                        </svg>
+                    </div>
+                    <div style="width: 15px; height: 15px;" id="up">
+                        <svg viewBox="0 0 100 100">
+                            <path d="M 50,0 L 0,100 L 100,100 Z" fill="#50C878" />
+                        </svg>
+                    </div>
+                </div>
+        
+                <div class="blocker">
+                    <div id="info">
+                        <div class="ticker-info">
+                            <h1>Open:</h1>
+                            <h2 id="open">215.66</h2>
+                        </div>
+                        <div class="ticker-info">
+                            <h1>Volume:</h1>
+                            <h2 id="close">215.66</h2>
+                        </div>
+                        <div class="ticker-info">
+                            <h1>Low:</h1>
+                            <h2 id="low">215.66</h2>
+                        </div class="ticker-info">
+                        <div class="ticker-info">
+                            <h1>High:</h1>
+                            <h2 id="high">215.66</h2>
+                        </div>
+                    </div>
+                    <canvas id="myChart"></canvas>
+        
+                </div>
+            </div>
             </li>
-  
+
             <li class="card">
               <div>mail</div>
             </li>
-  
+
             <!--fun facts-->
             <li class="card" >
-             <h3>Todays Events :</h3>
+              <h3>Todays Events :</h3>
               <p class = "todays-events-title" id="todays-events-title"></p>
-              <p class="todays-events-info" id="todays-events-info"></p>  
+              <p class="todays-events-info" id="todays-events-info"></p>
             </li>
-  
+
             <li class="card">
               <div>yt</div>
             </li>
-          
+
             <li class="card" >
               <h3>home assist card</h3>
             </li>
@@ -140,14 +129,14 @@
       </div>
     </div>
 
-      <div class="greetings-info-card">
-        <p id='greetings' class="greetings"></p><br>
-        <p id="current-time" class="current-time"></p>
-        <div class="info-card-greet">
-          <p class="info-p-2">Swipe the cards for more information</p>
-        </div>
+    <div class="greetings-info-card">
+      <p id='greetings' class="greetings"></p><br>
+      <p id="current-time" class="current-time"></p>
+      <div class="info-card-greet">
+        <p class="info-p-2">Swipe the cards for more information</p>
       </div>
     </div>
+  </div>
 
   </div>
     <script type="module" src="./scripts/script.js"></script>
