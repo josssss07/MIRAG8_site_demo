@@ -16,6 +16,7 @@ body {
 }
 
 body >.container{
+  border: 1px solid aqua;
   height: 100%;
   width: 100%;
 
@@ -246,3 +247,18 @@ li {
   flex-direction: column;
   height: 3rem;
 }
+.model_wrapper{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.706);
+}
+
+.Model{
+  background-color: black;
+  border-radius: 2%;
+}
+

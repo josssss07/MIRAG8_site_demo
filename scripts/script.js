@@ -1,3 +1,5 @@
+import { initializeCards , addListenerToCard } from "./cards_model.js";
+
 const wrapper = document.querySelectorAll(".wrapper");
 const carousel = document.querySelectorAll(".carousel");
 const firstCardWidth = carousel[0].querySelector(".card").offsetWidth;
@@ -119,3 +121,7 @@ carousel.forEach(function (carousel) {
 wrapper.forEach(function (wrapper) {
   wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
 });
+
+
+initializeCards();
+addListenerToCard();
