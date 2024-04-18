@@ -12,16 +12,44 @@
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400&f[]=ranade@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles/date-time.css">
   <link rel="stylesheet" href="./styles/stocks.css">
+  <link rel="stylesheet" href="./styles/weather.css">
 </head>
 <body>
     <div class = "container">
     <div class="date-time-weather">
-      <div class="date-time" id="current-time">
-
+      <div>
+        <div id="date" class="font-semibold mt-1 text-gray-300"></div>
+        <div id="time">
+          <div id="hrs">0</div>:
+          <div id="min">0</div>
+          <div id="sec">0</div>
+        </div>
       </div>
       <div class="weather">
-        <div>Weather card</div>
-        <div>data goes here</div>
+        <div id="current">
+          <div class="col">
+            <div id="current_temp">
+              <img id="current_icon" src="" alt="today's weather">
+              <span id="temp">29°C</span>
+            </div>
+            <span id="feels-like">Feels like </span>
+          </div>
+          <!-- <div>
+            <img src="./static/humid.svg" alt="humidity">
+            <span id="humidity"></span>
+          </div>
+          <div>
+            <img src="./static/wind.svg" alt="wind speed">
+            <span id="wind_speed"></span>
+
+          </div> -->
+        </div>
+        <div id="daily-weather">
+          <div class="daily-data-row bottom-divider">
+            <span>Day</span><span>Min</span><span>Max</span><span>Main</span>
+          </div>
+          <div id="daily-weather-container"></div>
+        </div>
       </div>
     </div>
     <div class="spotify-carousel">
@@ -140,6 +168,7 @@
 
   </div>
     <script type="module" src="./scripts/script.js"></script>
+    <script src="./scripts/weather_script.js"></script>
     <script src="./scripts/greetings.js"></script>
     <script src="./scripts/todo.js"></script>
   </body>

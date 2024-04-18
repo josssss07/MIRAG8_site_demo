@@ -1,0 +1,104 @@
+.date-time-weather{
+    /* display: grid;
+    grid-template-columns: auto auto; */
+    display: flex;
+    justify-content: space-between;
+    font-size: 150%;
+    width: 100%;
+    gap: 8px;
+    color: white !important;
+}
+
+.date-time-weather > div{
+    background-color: #121212;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 10px;
+}
+
+/* date */
+
+#date {
+    font-weight: 600;
+    margin-top: 0.25rem;
+    /* color: #d1d5db; */
+    font-size: 1rem;
+}
+
+/* time */
+
+#time {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: 700;
+    /* color: white; */
+}
+
+#sec{
+    font-size: 1.125rem;
+    /* color: #d1d5db; */
+}
+
+/* weather */
+
+#current{
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+}
+
+#current_temp{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#temp{
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+#feels-like{
+    font-size: 1rem;
+}
+
+#current-weather-icon{
+    height: 2rem;
+    width: 2rem;
+}
+
+#daily-weather-container{
+    max-height: 6rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+#daily-weather-container::-webkit-scrollbar {
+    display: none;
+    appearance: none;
+}
+
+.daily-weather-icon{
+    height: 1rem; 
+    width: 1rem;
+    fill: currentColor;
+    color: #d1d5db;
+}
+
+.daily-data-row{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    place-items: end;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.bottom-divider{
+    border-bottom: 1px solid ;
+}
