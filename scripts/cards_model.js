@@ -15,11 +15,7 @@ function addListenerToCard() {
   });
 }
 
-function openModel() {
-  currentNode= this;
-  let node1 = this.children;
-  addElement(node1);
-}
+
 
 function addElement(node) {
     let newlist = node;
