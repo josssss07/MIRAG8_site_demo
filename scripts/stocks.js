@@ -1,75 +1,77 @@
-const ctx = document.getElementById('myChart');
-const contName = document.getElementById('stock-name');
-const price = document.getElementById('current-price');
-const up = document.getElementById('up');
-const down = document.getElementById('down');
-const symbol = document.getElementById("symbol")
-var chart;
-
-symbol.onclick = (ev => ev.stopImmediatePropagation());
-
-const [high, low, open, close] = [
-    document.getElementById("high"),
-    document.getElementById("low"),
-    document.getElementById("open"),
-    document.getElementById("close"),
-]
-
-async function chartPlot(valMap) {
-    if (chart) chart.destroy();
-    chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: Object.keys(valMap),
-            datasets: [{
-                label: 'Closing Price',
-                data: Object.values(valMap),
-                borderWidth: 3,
-                borderColor: 'rgb(0,255,120)',
-                pointBackgroundColor: 'rgb(0,255,200)'
-            }]
-        },
-        options: {
-            responsive: true,
-            elements: {
-                point: {
-                    radius: 0
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
-            layout: {
-                padding: 20
-            },
-            scales: {
-                x: {
-                    // display: false
-                },
-                y: {
-                    // display: false
-                }
-            }
-        }
-    });
+const target = document.querySelector('#ticker');
+const select = document.querySelector('#dropdown');
+select.value = "0";
+const exchanges = {
+    '1': ['BKNG', 'AVGO', 'ORLY', 'LRCX'],
+    '2': ['TSLA', 'AMD', 'NVDA', 'AAPL', 'META'],
+    '3': ['BTC', 'ETH', 'BNB', 'ADA', 'XRP']
 }
 
-async function fetchData(symbol) {
-    const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo");
-    // const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=5min&apikey=");
+function Ticker(symbol, price, pc) {
+    this.tItem = document.createElement('div');
+    this.head = document.createElement('div');
+    this.icon = document.createElement('div');
+    this.change = document.createElement('div');
+    this.title = document.createElement('span');
+    this.percentage = document.createElement('span');
+    this.b = document.createElement('b');
+    this.img = document.createElement('img');
+    this.imgdiv = document.createElement('div');
+
+    this.tItem.classList.add('ticker-tape-item');
+    this.head.classList.add('head');
+    this.change.classList.add('change');
+    this.b.classList.add('price');
+    this.title.classList.add('title');
+    this.percentage.classList.add('percentage');
+    this.change.classList.add(parseFloat(pc) >= 0 ? 'up' : 'down');
+    this.imgdiv.cssText = "width: 15px; height: 15px;";
+
+    this.img.src = parseFloat(pc) >= 0 ? '../images/up.png' : '../images/down.png';
+    this.img.alt = parseFloat(pc) >= 0 ? "UP" : "DOWN";
+    this.img.classList.add('stockimg')
+
+    this.tItem.appendChild(this.head);
+    this.tItem.appendChild(this.imgdiv);
+    this.tItem.appendChild(this.change);
+    this.head.appendChild(this.title);
+    this.head.appendChild(this.b);
+    this.change.appendChild(this.percentage);
+    this.imgdiv.appendChild(this.img);
+
+    this.title.textContent = symbol;
+    this.b.textContent = price;
+    this.percentage.textContent = pc;
+}
+
+async function fetchCryptoData(symbol) {
+    const resp = await fetch("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=CNY&apikey=demo");
     let json = (await resp.json());
 
     if (json["Error Message"]) {
         alert("Invalid Symbol");
         return null;
     }
-    contName.textContent = symbol || 'IBM';
-    return json["Time Series (5min)"];
+    const data = Object.values(Object.values(json)[1])[0];
+    const open = parseFloat(Object.values(data)[1]);
+    const close = parseFloat(Object.values(data)[7]);
+    return { open, close, symbol };
 }
 
-async function prepChartData(json) {
+async function fetchData(symbol = "IBM") {
+    const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo");
+    // const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=5min&apikey=90A44CVZMZYC6EWG");
+    let json = (await resp.json());
+
+    if (json["Error Message"]) {
+        alert("Invalid Symbol");
+        return null;
+    }
+    return { symbol, json: json["Time Series (5min)"] };
+}
+
+async function prepData(json, symbol) {
+    // console.log(json, symbol);
     if (!json) {
         return;
     }
@@ -84,36 +86,44 @@ async function prepChartData(json) {
 
     const dayOpen = parseFloat(data[0][1]["1. open"]).toFixed(2);
     const dayClose = parseFloat(data[data.length - 1][1]['4. close']).toFixed(2);
-    open.textContent = dayOpen
-    close.textContent = dayClose
-    price.textContent = dayClose
-    low.textContent = data.reduce(
-        (acc, value) => Math.min(acc, parseFloat(value[1]['4. close']).toFixed(2)), parseFloat(data[0][1]["1. open"]).toFixed(2)
-    )
-    high.textContent = data.reduce(
-        (acc, value) => Math.max(acc, parseFloat(value[1]['4. close']).toFixed(2)), 0
-    )
 
-    if (dayClose < dayOpen) {
-        up.classList.add("hide")
-        down.classList.remove("hide")
-    }
-    else {
-        up.classList.remove("hide")
-        down.classList.add("hide")
-    }
 
-    const valMap = {};
-    data.forEach(entry => {
-        valMap[entry[0].slice(entry[0].indexOf(" "), entry[0].lastIndexOf(":"))] = entry[1]['4. close'];
-    });
-    return valMap;
+    return { symbol, dayOpen, dayClose };
 }
 
-async function orchestrate() {
-    const value = symbol.value;
-    fetchData(value)
-        .then(prepChartData).then(chartPlot);
+async function getAllStocks() {
+    const index = select.value.toString();
+    if (index == 0) return target.replaceChildren();
+
+    if (index == 3) return handleCryptoData(index);
+
+    const exchange = exchanges[index];
+    const fetched = await Promise.allSettled(exchange.map(stock => fetchData(stock)));
+    const data = await Promise.allSettled(fetched.map(data => prepData(data.value.json, data.value.symbol)));
+    target.replaceChildren();
+    data.forEach(rawDatum => {
+        const datum = rawDatum.value;
+        const percent = (datum.dayClose - datum.dayOpen) * 100 / datum.dayOpen
+        const elem = new Ticker(datum.symbol, datum.dayClose, percent ? `${percent.toFixed(3)}%` : NaN);
+        target.appendChild(elem.tItem);
+    })
+    target.style.animation = 'none';
+    target.offsetHeight; /* trigger reflow */
+    target.style.animation = null;
 }
 
-// fetchData().then(prepChartData).then(chartPlot);
+async function handleCryptoData(index) {
+    const cryptos = exchanges[index];
+    const fetched = await Promise.allSettled(cryptos.map(token => fetchCryptoData(token)));
+    target.replaceChildren();
+    fetched.forEach(rawDatum => {
+        const datum = rawDatum.value;
+        const percent = (datum.close - datum.open) * 100 / datum.open
+        const elem = new Ticker(datum.symbol, "$" + datum.close.toFixed(3), percent ? `${percent.toFixed(3)}%` : NaN);
+        target.appendChild(elem.tItem);
+    })
+    target.style.animation = 'none';
+    target.offsetHeight; /* trigger reflow */
+    target.style.animation = null;
+}
+getAllStocks();

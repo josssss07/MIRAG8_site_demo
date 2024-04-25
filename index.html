@@ -103,52 +103,19 @@
               </div>
             </li>
 
-            <li class="card">
+            <li class="card stocks">
               <h2 style="color: aqua;">Stonks card example</h2>
-              <div class="stocks-card">
-                <div class="wrap">
-                    <h1 id="stock-name"> </h1>
-                    <input type="text" name="symbol" id="symbol">
-                    <button id="search" onclick="orchestrate()"><img src="./images/icon.png" alt="Search"
-                            /></button>
+              <div class="ticker-tape" id='ticker-tape'>
+                <div class="ticker" id='ticker'>
+                  
                 </div>
-                <div class="current">
-                    <h2 id="current-price"> </h2>
-                    <div style="width: 15px; height: 15px;" id="down">
-                        <svg viewBox="0 0 100 100">
-                            <path d="M 0,0 L 50,100 L 100,0 Z" fill="#FF3232" />
-                        </svg>
-                    </div>
-                    <div style="width: 15px; height: 15px;" id="up">
-                        <svg viewBox="0 0 100 100">
-                            <path d="M 50,0 L 0,100 L 100,100 Z" fill="#50C878" />
-                        </svg>
-                    </div>
-                </div>
-        
-                <div class="blocker">
-                    <div id="info">
-                        <div class="ticker-info">
-                            <h1>Open:</h1>
-                            <h2 id="open">215.66</h2>
-                        </div>
-                        <div class="ticker-info">
-                            <h1>Volume:</h1>
-                            <h2 id="close">215.66</h2>
-                        </div>
-                        <div class="ticker-info">
-                            <h1>Low:</h1>
-                            <h2 id="low">215.66</h2>
-                        </div class="ticker-info">
-                        <div class="ticker-info">
-                            <h1>High:</h1>
-                            <h2 id="high">215.66</h2>
-                        </div>
-                    </div>
-                    <canvas id="myChart"></canvas>
-        
-                </div>
-            </div>
+              </div>
+              <select name="exchange" id="dropdown" onchange="getAllStocks()">
+                <option value="0" selected="true">None</option>
+                <option value="1">NASDAQ</option>
+                <option value="2">New York Stock Exchange</option>
+                <option value="3">Crypto</option>
+              </select>
             </li>
 
             <li class="card">
