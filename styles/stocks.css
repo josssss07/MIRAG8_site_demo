@@ -11,6 +11,7 @@
     overflow: hidden;
     height: var(--height);
     padding-right: 100%;
+    padding-left: 100%;
 }
 
 .ticker-tape .ticker {
@@ -60,6 +61,10 @@
     font-weight: 900;
     letter-spacing: 1.5rem;
     color: rgba(0, 0, 0, 0.2);
+}
+
+.stocks {
+    overflow-x: hidden;
 }
 
 @-webkit-keyframes ticker {

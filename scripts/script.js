@@ -16,7 +16,7 @@ let isDragging = false,
   timeoutId;
 
 // Get the number of cards that can fit in the carousel at once
-let cardPerView = Math.round(carousel[0].offsetWidth / firstCardWidth);
+let cardPerView = 1//Math.round(carousel[0].offsetWidth / firstCardWidth);
 
 // Insert copies of the last few cards to beginning of carousel for infinite scrolling
 carouselChildrens.forEach(function (element) {
