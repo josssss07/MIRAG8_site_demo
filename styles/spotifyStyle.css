@@ -1,5 +1,7 @@
 .spotify{
-    width: 50%;
+    min-width: 150px;
+    position: relative;
+    top: -60px;
 }
 
 #app {
@@ -16,6 +18,7 @@
 
 #albumCover {
     width: 100%;
+    max-width: 150px;
     border-radius: 5px;
 }
 
