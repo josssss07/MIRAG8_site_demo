@@ -57,7 +57,7 @@ const dragStart = function (e) {
 
 const dragging = function (e) {
   if (!isDragging) return; // if isDragging is false return from here
-  // Updates the scroll position of the carousel based on the cursor movement\
+  // Updates the scroll position of the carousel based on the cursor movement
   this.scrollLeft = startScrollLeft - (e.pageX - startX);
 };
 
@@ -82,7 +82,7 @@ const infiniteScroll = function () {
 
   // Clear existing timeout & start autoplay if mouse is not hovering over carousel
   clearTimeout(timeoutId);
-  autoPlay();
+  // autoPlay();
 };
 
 

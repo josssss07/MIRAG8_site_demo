@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <link rel="stylesheet" href="./styles/greeting_card.css">
   <meta charset="utf-8" />
-    <title>MIGRAT8 Smart Mirror Demo  </title><script src="./scripts/news_data.js"></script>
+  <title>MIGRAT8 Smart Mirror Demo </title>
+  <script src="./scripts/news_data.js"></script>
 
   <link rel="stylesheet" href="./styles/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,10 +15,11 @@
   <link rel="stylesheet" href="./styles/date-time.css">
   <link rel="stylesheet" href="./styles/stocks.css">
   <link rel="stylesheet" href="./styles/weather.css">
-  <link rel="stylesheet" href="./styles/spotifyStyle.css"> 
+  <link rel="stylesheet" href="./styles/spotifyStyle.css">
 </head>
+
 <body>
-    <div class = "container">
+  <div class="container">
     <div class="date-time-weather">
       <div style="align-self: flex-start; padding: 20px;">
         <div id="date" class="font-semibold mt-1 text-gray-300"></div>
@@ -53,25 +56,27 @@
         </div>
       </div>
     </div>
-    <div class="spotify-carousel">
+    <div>
       <div class="spotify">
         <div id="app">
           <img id="albumCover" src="" alt="Album Cover">
           <div id="songDetails">
-              <div id="songInfo1">
-                  <img id="songImage1" src="" alt="Song Image"></img>
-                  <h2 id="songName"></h2>
-              </div>
-              <div id="songInfo2">
-                  <img id="songImage2" src="" alt="Artist Image"></img>
-                  <p id="artistName"></p>
-              </div>
+            <div id="songInfo1">
+              <img id="songImage1" src="" alt="Song Image"></img>
+              <h2 id="songName"></h2>
+            </div>
+            <div id="songInfo2">
+              <img id="songImage2" src="" alt="Artist Image"></img>
+              <p id="artistName"></p>
+            </div>
           </div>
           <button id="loginBtn" onclick="initiateLogin()">Login with Spotify</button>
           <div id="instructions">
-              <span>Tap the speaker icon located in the bottom corner of your screen. A menu of device options will appear. You may now select your Android TV. If it's your first time accessing this menu, Spotify will require your permission to discover and connect to your devices.</span>
-          </div>        
-      </div>
+            <span>Tap the speaker icon located in the bottom corner of your screen. A menu of device options will
+              appear. You may now select your Android TV. If it's your first time accessing this menu, Spotify will
+              require your permission to discover and connect to your devices.</span>
+          </div>
+        </div>
       </div>
       <div class="wrapper-wrapper">
         <div class="wrapper">
@@ -84,19 +89,9 @@
                   <h2>ToDo List</h2>
                 </div>
                 <div class="todo-body">
-                  <input
-                    type="text"
-                    id="todoText"
-                    class="todo-input"
-                    placeholder="Add your items"
-                  />
+                  <input type="text" id="todoText" class="todo-input" placeholder="Add your items" />
                   <!-- <span class="date" id="currentDate"></span> -->
-                <img
-                    src="images/addList.jpg"
-                    alt="+"
-                    id="AddUpdateClick"
-                    onclick="CreateToDoItems();"
-                />
+                  <img src="images/addList.jpg" alt="+" id="AddUpdateClick" onclick="CreateToDoItems();" />
                 </div>
                 <h5 id="Alert"></h5>
                 <ul id="list-items" class="list-items"></ul>
@@ -107,7 +102,7 @@
               <h2 style="color: aqua;">Stocks Viewer</h2>
               <div class="ticker-tape" id='ticker-tape'>
                 <div class="ticker" id='ticker'>
-                  
+
                 </div>
               </div>
               <select name="exchange" id="dropdown" onchange="getAllStocks()">
@@ -118,14 +113,26 @@
               </select>
             </li>
 
-            <li class="card">
-              <div>mail</div>
+            <li class="card gmail">
+              <div>
+                <p></p>
+
+                <!--Add buttons to initiate auth sequence and sign out-->
+                <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+                <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+
+                <pre style="white-space: pre-wrap;">
+                  <ul id="mail_list">
+
+                  </ul>
+                </pre>
+              </div>
             </li>
 
             <!--fun facts-->
-            <li class="card" >
+            <li class="card">
               <h3>Todays Events :</h3>
-              <p class = "todays-events-title" id="todays-events-title"></p>
+              <p class="todays-events-title" id="todays-events-title"></p>
               <p class="todays-events-info" id="todays-events-info"></p>
             </li>
 
@@ -133,7 +140,7 @@
               <div>yt</div>
             </li>
 
-            <li class="card" >
+            <li class="card">
               <h3>home assist card</h3>
             </li>
           </ul>
@@ -147,10 +154,14 @@
   </div>
 
   </div>
-    <script type="module" src="./scripts/script.js"></script>
-    <script src="./scripts/weather_script.js"></script>
-    <script src="./scripts/greetings.js"></script>
-    <script src="./scripts/todo.js"></script>
-    <script src="./scripts/spotifyAction.js"></script>
-  </body>
+  <script type="module" src="./scripts/script.js"></script>
+  <script src="./scripts/weather_script.js"></script>
+  <script src="./scripts/greetings.js"></script>
+  <script src="./scripts/todo.js"></script>
+  <script src="./scripts/spotifyAction.js"></script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+  <script src="./scripts/gmail.js"></script>
+</body>
+
 </html>

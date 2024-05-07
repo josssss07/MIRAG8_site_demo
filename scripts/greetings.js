@@ -40,6 +40,3 @@ else{
     greeting = morning_greetings[Math.floor(Math.random() * 6)];
 }
 document.getElementById('greetings').textContent = greeting
-
-
-document.getElementById('current-time').textContent = currentTimeIndication

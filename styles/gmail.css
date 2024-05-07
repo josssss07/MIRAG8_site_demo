@@ -1,0 +1,23 @@
+#mail_list{
+    max-height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.mail{
+    border-bottom: 1px solid aqua;
+    padding: 0.5rem 0.3rem 0.5rem 0.3rem;
+    padding: 12px 20px 12px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.subject{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.sender{
+    font-size: .8rem;
+    font-weight: 400;
+}

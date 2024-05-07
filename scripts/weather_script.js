@@ -70,7 +70,7 @@ async function getWeather() {
     });
 }
 
-getWeather();
+// getWeather();
 
 
 function getDate() {
