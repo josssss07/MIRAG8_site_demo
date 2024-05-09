@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Headlines</title>
+    <style>
+        .article {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>News Headlines</h1>
+    <div id="news-container"></div>
+
+    <script>
+        const apiKey = '1a8d9c287b604937b38c475562e315d0';
+        const newsContainer = document.getElementById('news-container');
+
+        function fetchNews() {
+            fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok') {
+                        displayNews(data.articles.slice(0, 5)); // Display only the first 5 articles
+                    } else {
+                        console.error('Error fetching news:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function displayNews(articles) {
+            newsContainer.innerHTML = '';
+            articles.forEach(article => {
+                const articleElement = document.createElement('div');
+                articleElement.classList.add('article');
+
+                const titleElement = document.createElement('h2');
+                titleElement.textContent = article.title;
+
+                const descriptionElement = document.createElement('p');
+                descriptionElement.textContent = article.description;
+
+                articleElement.appendChild(titleElement);
+                articleElement.appendChild(descriptionElement);
+
+                newsContainer.appendChild(articleElement);
+            });
+        }
+
+        fetchNews();
+        setInterval(fetchNews, 4 * 60 * 60 * 1000);
+    </script>
+</body>
+</html>
