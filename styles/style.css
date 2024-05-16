@@ -61,13 +61,12 @@ body >.container{
   scroll-snap-align: start;
   list-style: none;
   cursor: pointer;
-  padding-bottom: 15px;
   height: 18rem;
   flex-direction: column;
-  border-radius: 8px;
-  overflow-y: auto; /*ADDITION FOR SCROLLABLE*/
+  overflow-y: auto;
   color: #edeef0;
   background-color: #19191a;
+  padding: 8px;
 }
 
 .wrapper-wrapper{
@@ -161,16 +160,6 @@ ul li {
   cursor: pointer;
 }
 
-li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #7f7f835d;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  color: aqua; /* Text color */
-}
-
 h5 {
   text-align: center;
   margin-bottom: 10px;
@@ -236,7 +225,6 @@ li {
 .spotify-carousel{
   display: flex;
   justify-content: space-between;
-
 }
 
 .spotify {
@@ -249,3 +237,17 @@ li {
   height: 3rem;
 }
 
+::-webkit-scrollbar{
+  appearance: none;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track{
+  border-radius: 10px;
+  background-color: #000;
+}
+
+::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background-color: #121212;
+}
