@@ -42,7 +42,7 @@ async function initializeGapiClient() {
         discoveryDocs: [DISCOVERY_DOC],
     });
     gapiInited = true;
-    
+
     maybeEnableButtons();
 }
 
@@ -74,8 +74,7 @@ function maybeEnableButtons() {
  *  Sign in the user upon button click.
  */
 function handleAuthClick() {
-    if(gapiInited && gisInited){
-        console.log("hello");
+    if (gapiInited && gisInited) {
         tokenClient.callback = async (resp) => {
             if (resp.error !== undefined) {
                 throw (resp);
@@ -84,7 +83,7 @@ function handleAuthClick() {
             document.getElementById('authorize_button').innerText = 'Refresh';
             await listMessages();
         };
-    
+
         if (gapi.client.getToken() === null || getAccessToken === null) {
             // Prompt the user to select a Google Account and ask for consent to share their data
             // when establishing a new session.
@@ -129,9 +128,7 @@ async function listMessages() {
         return;
     }
 
-    console.log(messages);
-
-    messages.forEach(function(message){
+    messages.forEach(function (message) {
         getMessage(message.id);
     });
 }
@@ -140,27 +137,24 @@ function getMessage(messageId) {
     gapi.client.gmail.users.messages.get({
         'userId': 'me',
         'id': messageId
-    }).then(function(response) {
+    }).then(function (response) {
         var message = response.result;
         // Extract the email content and display it
         var payload = message.payload;
         var headers = payload.headers;
         var body = payload.body.data;
-
-        var contentType = getHeaderValue(headers, 'Content-Type');
-        var contentTransferEncoding = getHeaderValue(headers, 'Content-Transfer-Encoding');
+        
 
         var subject = getHeaderValue(headers, 'Subject');
         var sender = getHeaderValue(headers, 'From');
-        var decodedBody;
-
-        if (contentTransferEncoding === 'base64') {
-            decodedBody = atob(body);
-        // } else if (contentTransferEncoding === 'quoted-printable') {
-        //     var decodedBody = decodeQuotedPrintable(body);
-        }
-        else {
-            decodedBody = "";
+        var decodedBody ="";
+        
+        if (body != undefined || body != null || body != "") {
+            var contentType = getHeaderValue(headers, 'Content-Type');
+            var contentTransferEncoding = getHeaderValue(headers, 'Content-Transfer-Encoding');
+            if (contentTransferEncoding === 'base64') {
+                decodedBody = atob(body);
+            }
         }
 
         createMail(subject, sender, decodedBody);
@@ -176,7 +170,7 @@ function getHeaderValue(headers, name) {
     return '';
 }
 
-function createMail(subject, sender, body){
+function createMail(subject, sender, body) {
     const li = document.createElement('li');
     li.classList.add('mail');
 
@@ -188,8 +182,13 @@ function createMail(subject, sender, body){
     senderEL.classList.add('sender');
     senderEL.innerText = sender;
 
+    const bodyEl = document.createElement('div');
+    bodyEl.classList.add('email_body');
+    bodyEl.innerHTML = body;
+
     li.appendChild(subjectEl);
     li.appendChild(senderEL);
+    li.appendChild(bodyEl);
 
     mail_list.appendChild(li);
 }
