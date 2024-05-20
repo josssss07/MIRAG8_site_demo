@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stonker</title>
-    <style>
+    <!-- <style>
         h1,
         h2,
         h3 {
@@ -109,125 +109,28 @@
                 content: ":";
             }
         }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </style> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 </head>
 
 <body>
     <div class="stonks-card">
-        <h1>YESBANK</h1>
-        <div class="current">
-            <h2>188.99</h2>
-            <div style="width: 15px; height: 15px;">
-                <svg viewBox="0 0 100 100">
-                    <path d="M 0,0 L 50,100 L 100,0 Z" fill="#50C878" />
-                </svg>
-            </div>
-            <div style="width: 15px; height: 15px;">
-                <svg viewBox="0 0 100 100">
-                    <path d="M 50,0 L 0,100 L 100,100 Z" fill="#FF3232" />
-                </svg>
-            </div>
-        </div>
-
-        <div class="lower-split">
-            <div class="info-section">
-                <h3 style="padding-top: 40px;padding-bottom:20px;font-weight: normal;letter-spacing: 0.4px;">
-                    Today's Stats
-                </h3>
-                <div class="infos">
-                    <div>
-                        <h1>Open</h1>
-                        <h2>215.66</h2>
-                    </div>
-                    <div>
-                        <h1>Volume</h1>
-                        <h2>215.66</h2>
-                    </div>
-                    <div>
-                        <h1>Low</h1>
-                        <h2>215.66</h2>
-                    </div>
-                    <div>
-                        <h1>High</h1>
-                        <h2>215.66</h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="blocker">
-                <canvas id="myChart"></canvas>
-            </div>
-
-        </div>
+        <div class="finage-ticker-tape-item"> </div>
+        
+        <script type="text/javascript"
+        src="https://cdn.finage.co.uk/ticker-tape/main.js">
+        </script>
+        <script>
+          finageTickerTape.symbols(["btcusd:crypto", "eurusd:forex", "ibm", "ethusd:crypto","reliance"]);
+          
+          finageTickerTape.colors(["white","black"]);  //background color, text color
+          finageTickerTape.theme(["midnight"]); //pearl-white, midnight, dark-night
+          
+          finageTickerTape.initWidget();
+        </script>
     </div>
 
-    <script>
-        const ctx = document.getElementById('myChart');
-        async function chartPlot(valMap) {
-            console.log(valMap);
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: Object.keys(valMap),
-                    datasets: [{
-                        label: 'Closing Price',
-                        data: Object.values(valMap),
-                        borderWidth: 3,
-                        borderColor: 'rgb(0,255,120)',
-                        pointBackgroundColor: 'rgb(0,255,200)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false,
-                        }
-                    },
-                    layout: {
-                        padding: 20
-                    },
-                    scales: {
-                        x: {
-                            // display: false
-                        },
-                        y: {
-                            // display: false
-                        }
-                    }
-                }
-            });
-        }
-
-        async function fetchData() {
-            const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo");
-            let json = (await resp.json())["Time Series (5min)"];
-            return json;
-        }
-
-        async function prepChartData(json) {
-            const firstKey = Object.keys(json)[0].split(" ")[0];
-            let data = Object.entries(json).filter(arg => {
-                if (arg[0].startsWith(firstKey)) {
-                    return true;
-                }
-                return false;
-            });
-            data = data.slice(0, 20);
-            const valMap = {};
-            data.forEach(entry => {
-                valMap[entry[0].split(" ")[1]] = entry[1]['4. close'];
-            });
-            return valMap;
-        }
-
-        async function orchestrate() {
-
-        }
-
-        fetchData().then(prepChartData).then(chartPlot);
-    </script>
+    
 </body>
 
 </html>

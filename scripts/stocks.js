@@ -1,10 +1,11 @@
 const target = document.querySelector('#ticker');
 const select = document.querySelector('#dropdown');
+const apikey = "90A44CVZMZYC6EWG";
 select.value = "0";
 const exchanges = {
     '1': ['BKNG', 'AVGO', 'ORLY', 'LRCX'],
     '2': ['TSLA', 'AMD', 'NVDA', 'AAPL', 'META'],
-    '3': ['BTC', 'ETH', 'BNB', 'ADA', 'XRP']
+    '3': ['BTC', 'ETH', 'ADA', 'XRP']
 }
 
 function Ticker(symbol, price, pc) {
@@ -45,8 +46,9 @@ function Ticker(symbol, price, pc) {
 }
 
 async function fetchCryptoData(symbol) {
-    const resp = await fetch("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=CNY&apikey=demo");
+    const resp = await fetch("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol="+(symbol ?? 'BTC')+"&market=EUR&apikey=" + apikey);
     let json = (await resp.json());
+    console.log(json);
 
     if (json["Error Message"]) {
         alert("Invalid Symbol");
@@ -54,13 +56,12 @@ async function fetchCryptoData(symbol) {
     }
     const data = Object.values(Object.values(json)[1])[0];
     const open = parseFloat(Object.values(data)[1]);
-    const close = parseFloat(Object.values(data)[7]);
+    const close = parseFloat(Object.values(data)[3]);
     return { open, close, symbol };
 }
 
 async function fetchData(symbol = "IBM") {
-    const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo");
-    // const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=5min&apikey=90A44CVZMZYC6EWG");
+    const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=5min&apikey="+ apikey);
     let json = (await resp.json());
 
     if (json["Error Message"]) {
@@ -104,7 +105,7 @@ async function getAllStocks() {
     data.forEach(rawDatum => {
         const datum = rawDatum.value;
         const percent = (datum.dayClose - datum.dayOpen) * 100 / datum.dayOpen
-        const elem = new Ticker(datum.symbol, datum.dayClose, percent ? `${percent.toFixed(3)}%` : NaN);
+        const elem = new Ticker(datum.symbol, "$"+datum.dayClose, percent ? `${percent.toFixed(3)}%` : NaN);
         target.appendChild(elem.tItem);
     })
     target.style.animation = 'none';
@@ -117,6 +118,7 @@ async function handleCryptoData(index) {
     const fetched = await Promise.allSettled(cryptos.map(token => fetchCryptoData(token)));
     target.replaceChildren();
     fetched.forEach(rawDatum => {
+        console.log(rawDatum);
         const datum = rawDatum.value;
         const percent = (datum.close - datum.open) * 100 / datum.open
         const elem = new Ticker(datum.symbol, "$" + datum.close.toFixed(3), percent ? `${percent.toFixed(3)}%` : NaN);
