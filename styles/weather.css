@@ -3,7 +3,6 @@
     grid-template-columns: auto auto; */
     display: flex;
     justify-content: space-between;
-    font-size: 150%;
     width: 100%;
     gap: 8px;
     color: white !important;
@@ -21,22 +20,19 @@
 #date {
     font-weight: 600;
     margin-top: 0.25rem;
-    /* color: #d1d5db; */
-    font-size: 1rem;
 }
 
 /* time */
 
 #time {
     display: flex;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     /* color: white; */
 }
 
 #sec{
-    font-size: 1.125rem;
-    /* color: #d1d5db; */
+    font-size: 0.8rem;
 }
 
 /* weather */
