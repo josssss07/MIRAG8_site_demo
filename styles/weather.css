@@ -1,6 +1,4 @@
 .date-time-weather{
-    /* display: grid;
-    grid-template-columns: auto auto; */
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -8,11 +6,16 @@
     color: white !important;
 }
 
+
+.date-time{
+    display: flex;
+}
+
 .date-time-weather > div{
     background-color: #121212;
-    padding: 0.5rem;
     text-align: center;
     border-radius: 10px;
+    padding: 0.5rem;
 }
 
 /* date */
@@ -28,7 +31,6 @@
     display: flex;
     font-size: 1.2rem;
     font-weight: 700;
-    /* color: white; */
 }
 
 #sec{

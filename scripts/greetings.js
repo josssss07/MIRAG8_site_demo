@@ -39,4 +39,4 @@ else{
     ];
     greeting = morning_greetings[Math.floor(Math.random() * 6)];
 }
-document.getElementById('greetings').textContent = greeting
+document.querySelector('.greetings-info-card').textContent = greeting

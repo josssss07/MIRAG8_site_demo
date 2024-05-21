@@ -2,12 +2,6 @@
 .date-time{
     display: flex;
 }
-.date-time-weather > div{
-    background-color: #19191a;
-    padding: 0.5rem;
-    text-align: center;
-    border-radius: 10px;
-}
 
 .date-time-weather{
     color: aqua;

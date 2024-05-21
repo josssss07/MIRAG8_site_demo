@@ -4,21 +4,9 @@
     flex-direction: column;
     color: aqua;
     text-align: center;
-    padding: 22px;
     bottom: 0;
-}
-
-.greetings{
-    font-size: 26px;
-    padding: 12px;
-    padding-left: 18px;
+    font-size: 20px;
     font-family: 'Satoshi', sans-serif;
-}
-.current-time{
-    padding: 20px;
-    display: inline;
-    font-family: 'Satoshi', sans-serif;
-    font-size: 18px;
 }
 
 .info-card-greet{
