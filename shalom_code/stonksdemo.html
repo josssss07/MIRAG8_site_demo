@@ -6,40 +6,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stonker</title>
     <style>
-        .blocker {
-            width: 400px;
-            height: 250px;
-        }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-    <div class="blocker">
-        <canvas id="myChart"></canvas>
+    <div class="stonks-card">
+        <div class="wrap">
+            <h1 id="stock-name"> </h1>
+            <input type="text" name="symbol" id="symbol">
+            <button id="search" onclick="orchestrate()"><img src="icon.png" alt="Search"
+                    style="width: 15px;height: 15px;" /></button>
+        </div>
+        <div class="current">
+            <h2 id="current-price"> </h2>
+            <div style="width: 15px; height: 15px;" id="down">
+                <svg viewBox="0 0 100 100">
+                    <path d="M 0,0 L 50,100 L 100,0 Z" fill="#FF3232" />
+                </svg>
+            </div>
+            <div style="width: 15px; height: 15px;" id="up">
+                <svg viewBox="0 0 100 100">
+                    <path d="M 50,0 L 0,100 L 100,100 Z" fill="#50C878" />
+                </svg>
+            </div>
+        </div>
+
+        <div class="blocker">
+            <div id="info">
+                <div class="ticker-info">
+                    <h1>Open:</h1>
+                    <h2 id="open">215.66</h2>
+                </div>
+                <div class="ticker-info">
+                    <h1>Volume:</h1>
+                    <h2 id="close">215.66</h2>
+                </div>
+                <div class="ticker-info">
+                    <h1>Low:</h1>
+                    <h2 id="low">215.66</h2>
+                </div class="ticker-info">
+                <div class="ticker-info">
+                    <h1>High:</h1>
+                    <h2 id="high">215.66</h2>
+                </div>
+            </div>
+            <canvas id="myChart"></canvas>
+
+        </div>
     </div>
 
     <script>
         const ctx = document.getElementById('myChart');
+        const name = document.getElementById('stock-name');
+        const price = document.getElementById('current-price');
+        const up = document.getElementById('up');
+        const down = document.getElementById('down');
+        var chart;
 
-        async function fetchData() {
-            const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo");
-            let json = (await resp.json())["Time Series (5min)"];
-            console.log(json);
-            const firstKey = Object.keys(json)[0].split(" ")[0];
-            let data = Object.entries(json).filter(arg => {
-                if (arg[0].startsWith(firstKey)) {
-                    return true;
-                }
-                return false;
-            });
-            data = data.slice(0, 10);
-            const valMap = {};
-            data.forEach(entry => {
-                valMap[entry[0].split(" ")[1]] = entry[1]['4. close'];
-            });
+        const [high, low, open, close] = [
+            document.getElementById("high"),
+            document.getElementById("low"),
+            document.getElementById("open"),
+            document.getElementById("close"),
+        ]
 
-            new Chart(ctx, {
+        async function chartPlot(valMap) {
+            if (chart) chart.destroy();
+            chart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: Object.keys(valMap),
@@ -52,6 +87,17 @@
                     }]
                 },
                 options: {
+                    responsive: true,
+                    elements: {
+                    point:{
+                        radius: 0
+                    }
+                },
+                    plugins: {
+                        legend: {
+                            display: false,
+                        }
+                    },
                     layout: {
                         padding: 20
                     },
@@ -67,7 +113,67 @@
             });
         }
 
-        fetchData();
+        async function fetchData(symbol = "IBM") {
+            const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo");
+            // const resp = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=5min&apikey=BT8NIQDFU4KOJFE9.");
+            let json = (await resp.json());
+
+            if (json["Error Message"]) {
+                alert("Invalid Symbol");
+                return null;
+            }
+            name.textContent = symbol;
+            return json["Time Series (5min)"];
+        }
+
+        async function prepChartData(json) {
+            if (!json) {
+                return;
+            }
+
+            const firstKey = Object.keys(json)[0].split(" ")[0];
+            let data = Object.entries(json).filter(arg => {
+                if (arg[0].startsWith(firstKey)) {
+                    return true;
+                }
+                return false;
+            });
+
+            const dayOpen = parseFloat(data[0][1]["1. open"]).toFixed(2);
+            const dayClose = parseFloat(data[data.length - 1][1]['4. close']).toFixed(2);
+            open.textContent = dayOpen
+            close.textContent = dayClose
+            price.textContent = dayClose
+            low.textContent = data.reduce(
+                (acc, value) => Math.min(acc, parseFloat(value[1]['4. close']).toFixed(2)), parseFloat(data[0][1]["1. open"]).toFixed(2)
+            )
+            high.textContent = data.reduce(
+                (acc, value) => Math.max(acc, parseFloat(value[1]['4. close']).toFixed(2)), 0
+            )
+
+            if( dayClose < dayOpen ){
+                up.classList.add("hide")
+                down.classList.remove("hide")
+            }
+            else {
+                up.classList.remove("hide")
+                down.classList.add("hide")
+            }
+            
+            const valMap = {};
+            data.forEach(entry => {
+                valMap[entry[0].slice(entry[0].indexOf(" "), entry[0].lastIndexOf(":"))] = entry[1]['4. close'];
+            });
+            return valMap;
+        }
+
+        async function orchestrate() {
+            const symbol = document.getElementById("symbol").value;
+            fetchData(symbol)
+                .then(prepChartData).then(chartPlot);
+        }
+
+        // fetchData().then(prepChartData).then(chartPlot);
     </script>
 </body>
 
