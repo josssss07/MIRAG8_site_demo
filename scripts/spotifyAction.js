@@ -1,5 +1,5 @@
 const CLIENT_ID = 'a09b9be22e5745ae8215d4c3051a14b8'; // Replace with your actual Spotify client ID
-const REDIRECT_URI = 'https://mirag8-site-demo.vercel.app/'; // Ensure this matches your Spotify Developer Dashboard
+const REDIRECT_URI = 'http://127.0.0.1:5502'; // Ensure this matches your Spotify Developer Dashboard
 
 document.getElementById('loginBtn').addEventListener('click', () => {
     initiateLogin();

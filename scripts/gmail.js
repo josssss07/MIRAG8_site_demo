@@ -117,6 +117,7 @@ async function listMessages() {
     try {
         response = await gapi.client.gmail.users.messages.list({
             'userId': 'me',
+            'content-length': 50,
         });
     } catch (err) {
         document.getElementById('content').innerText = err.message;
@@ -133,6 +134,13 @@ async function listMessages() {
     });
 }
 
+function decodeQuotedPrintable(encodedText) {
+    return encodedText.replace(/=\r\n/g, '')  // Remove soft line breaks
+        .replace(/=([A-Fa-f0-9]{2})/g, function (match, p1) {
+            return String.fromCharCode(parseInt(p1, 16));
+        });
+}
+
 function getMessage(messageId) {
     gapi.client.gmail.users.messages.get({
         'userId': 'me',
@@ -141,19 +149,43 @@ function getMessage(messageId) {
         var message = response.result;
         // Extract the email content and display it
         var payload = message.payload;
+        // console.log(payload);
+        var parts = payload.parts;
         var headers = payload.headers;
-        var body = payload.body.data;
-        
+        var body = "";
+
 
         var subject = getHeaderValue(headers, 'Subject');
         var sender = getHeaderValue(headers, 'From');
-        var decodedBody ="";
-        
+        var decodedBody = "";
+
+        if (parts != undefined) {
+            parts.forEach((part) => {
+                if (part.mimeType == 'text/html') {
+                    body = part.body.data;
+                }
+            })
+        }
+        else {
+            body = payload.body.data;
+        }
+
         if (body != undefined || body != null || body != "") {
             var contentType = getHeaderValue(headers, 'Content-Type');
             var contentTransferEncoding = getHeaderValue(headers, 'Content-Transfer-Encoding');
-            if (contentTransferEncoding === 'base64') {
+            if (contentTransferEncoding == 'base64') {
+                body = body.replace(/-/, "+");
+                body = body.replace(/_/, "/");
                 decodedBody = atob(body);
+                console.log('base64: '+decodedBody)
+            }
+            else if (contentTransferEncoding == 'quoted-printable') { 
+                decodedBody = decodeQuotedPrintable(body);
+                console.log('quoted-printable: ' + decodedBody);
+            }
+            else {
+                decodedBody = body;
+                console.log('pther: '+decodedBody);
             }
         }
 
@@ -192,4 +224,3 @@ function createMail(subject, sender, body) {
 
     mail_list.appendChild(li);
 }
-

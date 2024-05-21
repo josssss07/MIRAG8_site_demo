@@ -34,7 +34,7 @@ else{
         "Enjoy your evening",
         "Hope you had a great day",
         "Make the most of your evening",
-        "Enjou your night",
+        "Enjoy your night",
         "Sleep well for a great day ",
     ];
     greeting = morning_greetings[Math.floor(Math.random() * 6)];
